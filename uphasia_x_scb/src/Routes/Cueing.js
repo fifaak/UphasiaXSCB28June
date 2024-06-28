@@ -11,7 +11,7 @@ import Title from './image/logo/Uphasia.png';
 import { Link,useNavigate} from "react-router-dom";
 import AlertBox from './component/AlertBox'
 
-function Home() {
+function SFA() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("/option1");
   const [alertVisible, setAlertVisible] = useState(false); // State to manage alert visibility
@@ -34,13 +34,13 @@ function Home() {
        <div className="static-bar">
        <div className="left-content">
 
-       <Link to="/">
-           <img className="title-image" src={Title} alt="Title"  onClick={() => handleMode('/585')} />
+       <Link to="/Naming">
+           <img className="title-image" src={Title} alt="Title"  onClick={() => navigate('/Naming')} />
         </Link>
        </div>
 
        <div className="Middle-content">
-        <h1>สวัสดีคุณ เด่นชัย </h1>
+        <h1>Sematic Cueing</h1>
        </div>
       <div className='right-content'>
 
@@ -53,47 +53,26 @@ function Home() {
      </div>
 
         <div className="Dashboard">
-          <div className='etcBoard'>
-          <img src={UphasiaMockup} alt="UGBN" />
-            </div>
+     
+                <div className='etcBoard2'>
+                    
+                    <div className='etcBoard3'>
+                        
+                    </div>
+                    <div className='etcBoard4'>
+                        
+                    </div>
+            
+                </div>
           <div className="modetab">
 
             <div className='ModeHeading'>
-            <h1>Practice</h1>
+            <h1>Log</h1>
             </div>
           
             
         
-            <div
-              className={`sidebar-option ${mode === '/option3' ? 'active' : ''}`}
-              onClick={() => navigate('/Naming')}
-            >
-              <span>การเรียกชื่อ Naming</span>
-              
-            </div>
-
-
-            <div
-              className={`sidebar-option ${mode === '/option4' ? 'active' : ''}`}
-              onClick={() => block()}
-            >
-            
-              <span>การพูดตาม Repetition</span>
-            </div>
-            <div
-              className={`sidebar-option ${mode === '/option2' ? 'active' : ''}`}
-              onClick={() => block()}
-            >
-             
-              <span>ความเข้าใจ Comprehension</span>
-            </div>
-            <div
-              className={`sidebar-option ${mode === '/option5' ? 'active' : ''}`}
-              onClick={() => block()}
-            >
-              
-              <span>ความคล่องในการพูด Speech Fluency</span>
-            </div>
+       
           </div>
         </div>
         {alertVisible && (
@@ -108,5 +87,5 @@ function Home() {
   }
 
   
-export default Home;
+export default SFA;
 

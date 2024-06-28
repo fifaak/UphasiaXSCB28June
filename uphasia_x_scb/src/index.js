@@ -17,13 +17,24 @@ import Dashboard from './Routes/Dashboard';
 import Welcome from './Routes/Welcome';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
-
+import SFA from './Routes/SFA';
+import Cueing from './Routes/Cueing';
 const router = createBrowserRouter([
 
   {
     path: "/",
     errorElement: <Err />,
     element:  <Welcome/>,
+  },
+  {
+    path: "/SFA",
+    errorElement: <Err />,
+    element:  <SFA/>,
+  },
+  {
+    path: "/Cueing",
+    errorElement: <Err />,
+    element:  <Cueing/>,
   },
   {
     path: "/Register",
