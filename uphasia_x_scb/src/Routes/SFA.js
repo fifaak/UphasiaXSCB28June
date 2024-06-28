@@ -1,91 +1,137 @@
-
 import './css/App.css';
-import { useState/*, useEffect*/ } from 'react';
-/*import { useLocation } from 'react-router-dom';
-import { db } from './Firebase';
-import {  collection, getDocs, doc, getDoc } from 'firebase/firestore';
-import HomeIcon from './image/svg/Home.png';*/
-import UphasiaMockup from './image/Data/UphasiaMock.png'
+import { useState } from 'react';
 import UserIcon from './image/svg/person.png';
 import Title from './image/logo/Uphasia.png';
-import { Link,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AlertBox from './component/AlertBox'
+import sentPNG from './image/svg/sent.png'
 
 function SFA() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("/option1");
   const [alertVisible, setAlertVisible] = useState(false); // State to manage alert visibility
-  //const [alertTopic, setAlertTopic] = useState('Mode Return Null'); // State to manage alert topic
-  //const [alertContent, setAlertContent] = useState('Node Has no component'); // State to manage alert content
+  const [occupation, setOccupation] = useState('ทหาร');
+  const [numOfWords, setNumOfWords] = useState(2);
+  const [responseData, setResponseData] = useState(null);
 
-
-
-  
   const handleMode = (USERMode) => {
     setMode(USERMode);
   };
+
   const block = () => {
     setAlertVisible(true)
-  }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://127.0.0.1:8000/guess_word', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          occupation,
+          num_of_word: numOfWords,
+          word: '',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      setResponseData(result);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
-    /* STATIC BAR */
     <div className="App">
-    <div className="static-bar">
-    <div className="left-content">
+      <div className="static-bar">
+        <div className="left-content">
+          <Link to="/Naming">
+            <img className="title-image" src={Title} alt="Title" onClick={() => navigate('/Naming')} />
+          </Link>
+        </div>
+        <div className="Middle-content">
+          <h1>Semantic Features Analysis</h1>
+        </div>
+        <div className='right-content'>
+          <div className="ProfileBox" onClick={() => block()}>
+            <img src={UserIcon} alt="UGBN" className="UserIcon" />
+            <h1 className="ProfileText">เด่นชัย ดัยเช่น</h1>
+          </div>
+        </div>
+      </div>
 
-    <Link to="/Naming">
-        <img className="title-image" src={Title} alt="Title"  onClick={() => navigate('/Naming')} />
-     </Link>
+      <div className="Dashboard">
+        <div className='etcBoard2'>
+          <div className='etcBoard3'></div>
+          <div className='etcBoard4'>
+            <form onSubmit={handleSubmit}>
+            <label>
+                Mode:
+                <select value={mode} onChange={(e) => handleMode(e.target.value)}>
+                  <option value="/option1">Option 1</option>
+                  <option value="/option2">Option 2</option>
+                  {/* Add more options as needed */}
+                </select>
+              </label>
+              <label>
+                Occupation:
+                <input
+                  type="text"
+                  value={occupation}
+                  onChange={(e) => setOccupation(e.target.value)}
+                />
+              </label>
+              <label>
+               Words:
+                <select
+                  value={numOfWords}
+                  onChange={(e) => setNumOfWords(parseInt(e.target.value))}
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  {/* Add more options as needed */}
+                </select>
+              </label>
+              
+              <img
+                src={sentPNG}
+                alt="Send"
+                className="SubmitIcon"
+                onClick={handleSubmit} // Trigger API send
+              />
+            </form>
+            {responseData && (
+              <div>
+                <h2>Response Data:</h2>
+                <pre>{JSON.stringify(responseData, null, 2)}</pre>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="modetab">
+          <div className='ModeHeading'>
+            <h1>Log</h1>
+            <textarea>hah</textarea>
+          </div>
+        </div>
+      </div>
+      {alertVisible && (
+        <AlertBox
+          alertTopic={'Mode Return Null'}
+          alertContent={'Node Has no component'}
+          onClose={() => setAlertVisible(false)} // Close the alert
+        />
+      )}
     </div>
-
-    <div className="Middle-content">
-     <h1>Sematic Features Analysis</h1>
-    </div>
-   <div className='right-content'>
-
-    <div className="ProfileBox" onClick={() => block()}>
-      <img src={UserIcon} alt="UGBN" className="UserIcon" />
-      <h1 className="ProfileText">เด่นชัย ดัยเช่น</h1> 
-    </div>
-   </div>
-
-  </div>
-
-     <div className="Dashboard">
-  
-             <div className='etcBoard2'>
-                 
-                 <div className='etcBoard3'>
-                     
-                 </div>
-                 <div className='etcBoard4'>
-                     
-                 </div>
-         
-             </div>
-       <div className="modetab">
-
-         <div className='ModeHeading'>
-         <h1>Log</h1>
-         </div>
-       
-         
-     
-    
-       </div>
-     </div>
-     {alertVisible && (
-     <AlertBox
-       alertTopic={'Mode Return Null'}
-       alertContent={'Node Has no component'}
-       onClose={() => setAlertVisible(false)} // Close the alert
-     />
-   )}
-   </div>
- );
+  );
 }
 
-  
 export default SFA;
-

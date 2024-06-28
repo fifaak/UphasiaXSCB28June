@@ -32,9 +32,7 @@ function Naming() {
         <h1 className="ProfileText">เด่นชัย ดัยเช่น</h1>
       </div>
      </div>
-
     </div>
-
        <div className="Dashboard">
        
          <div className="modetab2" onClick={() => navigate('/Cueing')}>
