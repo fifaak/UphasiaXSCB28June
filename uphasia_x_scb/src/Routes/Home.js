@@ -59,7 +59,7 @@ function Home() {
           <div className="modetab">
 
             <div className='ModeHeading'>
-            <h1>Practice</h1>
+            <h1>การฝึกพูด</h1>
             </div>
           
             

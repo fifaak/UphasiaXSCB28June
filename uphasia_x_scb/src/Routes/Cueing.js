@@ -101,6 +101,7 @@ function Cueing() {
         <div className="modetab">
           <div className='ModeHeading'>
             <h1>Log</h1>
+            <textarea>hah</textarea>
           </div>
         </div>
       </div>

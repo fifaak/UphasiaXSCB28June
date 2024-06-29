@@ -10,6 +10,8 @@ function SFA() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("/option1");
   const [alertVisible, setAlertVisible] = useState(false); // State to manage alert visibility
+  
+  /* React State variable*/
   const [occupation, setOccupation] = useState('ทหาร');
   const [numOfWords, setNumOfWords] = useState(2);
   const [responseData, setResponseData] = useState(null);
@@ -23,6 +25,7 @@ function SFA() {
   };
 
   const handleSubmit = async (e) => {
+    console.log(occupation,numOfWords,mode)
     e.preventDefault();
     try {
       const response = await fetch('http://127.0.0.1:8000/guess_word', {
@@ -77,7 +80,6 @@ function SFA() {
                 <select value={mode} onChange={(e) => handleMode(e.target.value)}>
                   <option value="/option1">Option 1</option>
                   <option value="/option2">Option 2</option>
-                  {/* Add more options as needed */}
                 </select>
               </label>
               <label>
